@@ -23,5 +23,5 @@ function returnReqNum(){
 // function returnReqNum(req, res){
 //   let result = counter.count();
 //   res.send(result + "").end();
-}
+// }
 
