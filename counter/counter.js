@@ -1,5 +1,9 @@
 
-//https://stackoverflow.com/questions/17562089/how-to-count-number-of-requests-in-last-second-minute-and-hour
+
+/**
+ * this is the period
+ * @see https://stackoverflow.com/questions/17562089/how-to-count-number-of-requests-in-last-second-minute-and-hour
+ */
 const CONSTTIME= 1000*60*60*24; // 24 hours
 
 /**
@@ -73,38 +77,65 @@ class Counter{
     return res;
   }
 
-  // 这个不对 不能达到清空的效果
-  // static deleteall(h, t){
-  //   h = null;
-  //   t = null;
-  // }
 }
-//class debug
-// var cc = new Counter();
-// TestList(cc, "2018-4-3")
-// TestList(cc, "2019-4-3")
-// TestList(cc, "2020-4-3")
-// TestList(cc, Date.now())
-// TestList(cc, Date.now())
-// TestList(cc, Date.now())
-// TestList(cc, Date.now())
-// TestList(cc, Date.now())
-// TestList(cc, Date.now())
-// TestList(cc, Date.now())
 
+
+/**
+ * test
+ * @param {*} c counter
+ * @param {*} d date
+ */
 function TestList(c, d){
   c.add(new Date(d))
-  console.log(c.count())
 }
 
-//debug
-// add("2019-4-3")
-// add(Date())
-// add(Date())
-// add(Date())
-// add(Date())
-// console.log(count(head, tail))
+/**
+ * test
+ * @param {*} a counter number 
+ * @param {*} b correct number
+ */
+function AssertInt(a, b){
+  if(parseInt(a) === parseInt(b)){
+    console.log(`====ok====[count: ${a}]`)
+  }
+  else{
+    console.log(`====wrong=[count: ${a}]`)
+  }
+}
 
+function Test(){
+//class debug
+  var cc = new Counter();
+  TestList(cc, "2018-4-3")
+  AssertInt(cc.count(), 1)
+
+  TestList(cc, "2019-4-3")
+  AssertInt(cc.count(), 1)
+
+  TestList(cc, "2020-4-3")
+  AssertInt(cc.count(), 1)
+
+  TestList(cc, Date.now())
+  AssertInt(cc.count(), 1)
+
+  TestList(cc, Date.now())
+  AssertInt(cc.count(), 2)
+
+  TestList(cc, Date.now())
+  AssertInt(cc.count(), 3)
+
+  TestList(cc, Date.now())
+  AssertInt(cc.count(), 4)
+
+  TestList(cc, Date.now())
+  AssertInt(cc.count(), 5)
+
+  TestList(cc, Date.now())
+  AssertInt(cc.count(), 6)
+
+  TestList(cc, Date.now())
+  AssertInt(cc.count(), 7)
+}
 
 module.exports = {
   // head : head,
@@ -114,3 +145,6 @@ module.exports = {
   // deleteall : deleteall,
   Counter: Counter,
 }
+
+// test
+// Test();
