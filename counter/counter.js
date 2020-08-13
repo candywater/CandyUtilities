@@ -4,7 +4,7 @@
  * this is the period
  * @see https://stackoverflow.com/questions/17562089/how-to-count-number-of-requests-in-last-second-minute-and-hour
  */
-const CONSTTIME= 1000*60*60*24; // 24 hours
+var CONSTTIME= 1000*60*60*24; // 24 hours
 
 /**
  * node of a Counter
@@ -20,7 +20,15 @@ class Visiter{
  * linked-list
  */
 class Counter{
-  constructor(head, tail){
+  /**
+   * 
+   * @param {*} period_time milisecond; 1000 milisecond = 1second; can be set as null
+   * @param {*} head can be set as null
+   * @param {*} tail can be set as null
+   */
+  constructor(period_time, head, tail){
+    if(period_time && typeof(period_time) == "number")
+      CONSTTIME = period_time;
     this.head = head ? head : null;
     this.tail = tail ? tail : null;
   }
