@@ -1,5 +1,5 @@
 import * as fs from 'node:fs/promises';
-import { folder, shareKey, CTRCount, outputfolder } from './config.js'
+import { folder, shareKey, CTRCount, outputfolder } from '../config.js'
 import aesjs from "aes-js"
 
 var files = await fs.readdir(folder)
@@ -8,7 +8,7 @@ var keyBytes = getShareKeyBytes(shareKey);
 files.forEach(async fileName => {
     var file = await readFile(folder + fileName)
     var encryptedBytes = encryptBytes(file, keyBytes, CTRCount);
-    writeFile(outputfolder + fileName, encryptedBytes);
+    writeFileBase64(outputfolder + fileName, encryptedBytes);
     // var decryptedBytes = decryptBytes(encryptedBytes, keyBytes, CTRCount);
     // writeFile(folder + fileName + '.aes', decryptedBytes);
 })
@@ -83,4 +83,14 @@ async function readFile(filePath) {
  */
 function writeFile(filePath, fileData) {
     fs.writeFile(filePath + ".aes", fileData);
+}
+
+/**
+ * 
+ * @param {string} filePath 
+ * @param {Buffer} fileData 
+ */
+function writeFileBase64(filePath, fileData) {    
+    let base64 = Buffer.from(fileData, 'binary').toString('base64');
+    fs.writeFile(filePath + ".aes", base64);
 }

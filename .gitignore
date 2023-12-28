@@ -3,3 +3,4 @@ node_modules/
 **/imgs-encrypted/
 **/config.js
 **/*.aes
+**/imgs-base64/*
