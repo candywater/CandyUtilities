@@ -2,3 +2,4 @@ node_modules/
 encryption/imgs/
 encryption/imgs-encrypted/
 encryption/config.js
+encryption/**/*.aes
