@@ -4,3 +4,4 @@ node_modules/
 **/config.js
 **/*.aes
 **/imgs-base64/*
+assets

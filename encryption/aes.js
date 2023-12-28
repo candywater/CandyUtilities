@@ -1,32 +1,17 @@
 import * as fs from 'node:fs/promises';
-import { folder, shareKey, CTRCount, outputfolder } from '../config.js'
+import { inputfolder, shareKey, CTRCount, outputfolder, output2folder } from '../config.js'
 import aesjs from "aes-js"
 
-var files = await fs.readdir(folder)
+var files = await fs.readdir(inputfolder)
 var keyBytes = getShareKeyBytes(shareKey);
 
 files.forEach(async fileName => {
-    var file = await readFile(folder + fileName)
+    var file = await readFile(inputfolder + fileName)
     var encryptedBytes = encryptBytes(file, keyBytes, CTRCount);
-    writeFileBase64(outputfolder + fileName, encryptedBytes);
-    // var decryptedBytes = decryptBytes(encryptedBytes, keyBytes, CTRCount);
-    // writeFile(folder + fileName + '.aes', decryptedBytes);
+    writeFile(outputfolder + fileName + '.aes', encryptedBytes);
+    var decryptedBytes = decryptBytes(encryptedBytes, keyBytes, CTRCount);
+    writeFile(output2folder + fileName + '.jpg', decryptedBytes);
 })
-
-/*
-
-<!-- https://stackoverflow.com/questions/48684703/javascript-how-to-store-images-on-memory-and-load-them-from-memory-insteaid-of -->
-    (async () {
-        const encryptedBytes = await (await fetch("/doc/year-summary/2023/imgs-encrypted/IMG_042880_(Large).JPG.aes")).arrayBuffer();
-        var keyBytes = getShareKeyBytes("candywater")
-        const decryptedBytes = decryptBytes(encryptedBytes, keyBytes, 7)
-        
-        var image = new Image();
-        image.src = "data:image/gif;base64,"+btoa(decryptedBytes)
-        document.querySelector('img').replaceWith(image);
-    })();
-*/ 
-
 
 /**
  * 
@@ -82,7 +67,7 @@ async function readFile(filePath) {
  * @param {Buffer} fileData 
  */
 function writeFile(filePath, fileData) {
-    fs.writeFile(filePath + ".aes", fileData);
+    fs.writeFile(filePath, fileData);
 }
 
 /**
@@ -92,5 +77,16 @@ function writeFile(filePath, fileData) {
  */
 function writeFileBase64(filePath, fileData) {    
     let base64 = Buffer.from(fileData, 'binary').toString('base64');
-    fs.writeFile(filePath + ".aes", base64);
+    fs.writeFile(filePath, base64);
+}
+
+
+/**
+ * 
+ * @param {string} filePath 
+ * @param {Buffer} fileData 
+ */
+function writeFileUTF8Text(filePath, fileData) {    
+    let text = Buffer.from(fileData, 'binary').toString('utf8');
+    fs.writeFile(filePath, text);
 }
