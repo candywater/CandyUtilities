@@ -7,11 +7,25 @@ var keyBytes = getShareKeyBytes(shareKey);
 
 files.forEach(async fileName => {
     var file = await readFile(folder + fileName)
-    var encryptedBytes = encryptBytes(file);
+    var encryptedBytes = encryptBytes(file, keyBytes, CTRCount);
     writeFile(outputfolder + fileName, encryptedBytes);
-    // var decryptedBytes = decryptBytes(encryptedBytes);
+    // var decryptedBytes = decryptBytes(encryptedBytes, keyBytes, CTRCount);
     // writeFile(folder + fileName + '.aes', decryptedBytes);
 })
+
+/*
+
+<!-- https://stackoverflow.com/questions/48684703/javascript-how-to-store-images-on-memory-and-load-them-from-memory-insteaid-of -->
+    (async () {
+        const encryptedBytes = await (await fetch("/doc/year-summary/2023/imgs-encrypted/IMG_042880_(Large).JPG.aes")).arrayBuffer();
+        var keyBytes = getShareKeyBytes("candywater")
+        const decryptedBytes = decryptBytes(encryptedBytes, keyBytes, 7)
+        
+        var image = new Image();
+        image.src = "data:image/gif;base64,"+btoa(decryptedBytes)
+        document.querySelector('img').replaceWith(image);
+    })();
+*/ 
 
 
 /**
@@ -29,9 +43,11 @@ function getShareKeyBytes(key) {
 /**
  * 
  * @param {Buffer} file 
+ * @param {Buffer} keyBytes
+ * @param {number} CTRCount
  * @returns Buffer
  */
-function encryptBytes(file) {
+function encryptBytes(file, keyBytes, CTRCount) {
     var aesCtr = new aesjs.ModeOfOperation.ctr(keyBytes, new aesjs.Counter(CTRCount));
     var encryptedBytes = aesCtr.encrypt(file);
     return encryptedBytes;
@@ -40,9 +56,11 @@ function encryptBytes(file) {
 /**
  * 
  * @param {Buffer} file 
+ * @param {Buffer} keyBytes
+ * @param {number} CTRCount
  * @returns Buffer
  */
-function decryptBytes(file) {
+function decryptBytes(file, keyBytes, CTRCount) {
     var aesCtr = new aesjs.ModeOfOperation.ctr(keyBytes, new aesjs.Counter(CTRCount));
     var encryptedBytes = aesCtr.decrypt(file);
     return encryptedBytes;
