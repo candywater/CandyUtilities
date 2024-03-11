@@ -32,11 +32,11 @@ function fileReaderToDataURL(arrayBuffer, callback) {
 }
 
 /**
-* @param {Blob} arrayBuffer
+* @param {string} url
 * @param {Function} callback
 * @returns base64text
 */
-async function urlToDataURL(arrayBuffer, callback) {
+async function urlToDataURL(url, callback) {
     var dataArray = await (await fetch(url)).arrayBuffer();
     var dataBytes = new Uint8Array(dataArray);
     var blob = new Blob([dataBytes]);
