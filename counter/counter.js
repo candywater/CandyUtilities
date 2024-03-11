@@ -145,13 +145,14 @@ function Test(){
   AssertInt(cc.count(), 7)
 }
 
-module.exports = {
+
+export {
   // head : head,
   // tail : tail,
   // add : add,
   // count : count,
   // deleteall : deleteall,
-  Counter: Counter,
+  Counter
 }
 
 // test
