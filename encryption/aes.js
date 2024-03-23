@@ -11,6 +11,19 @@ function getShareKeyBytes(key) {
     keyStringBytes.forEach((value, index) => { keyBytes[index] = value })
     return keyBytes;
 }
+/**
+ * for browser
+ * @param {string} key 
+ * @returns {Uint8Array}
+ */
+function getShareKeyBytesForBrowser(key) {
+    var keyBytes = new Uint8Array(32);
+    var encoder = new TextEncoder();
+    var keyStringBytes = encoder.encode(key);
+    keyStringBytes.forEach((value, index) => { keyBytes[index] = value });
+    return keyBytes;
+}
+
 
 /**
  * 
