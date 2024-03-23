@@ -11,6 +11,7 @@ function getShareKeyBytes(key) {
     keyStringBytes.forEach((value, index) => { keyBytes[index] = value })
     return keyBytes;
 }
+
 /**
  * for browser
  * @param {string} key 
@@ -23,7 +24,6 @@ function getShareKeyBytesForBrowser(key) {
     keyStringBytes.forEach((value, index) => { keyBytes[index] = value });
     return keyBytes;
 }
-
 
 /**
  * 
@@ -53,6 +53,7 @@ function decryptBytes(file, keyBytes, CTRCount) {
 
 export {
     getShareKeyBytes,
+    getShareKeyBytesForBrowser,
     encryptBytes,
     decryptBytes
 }
