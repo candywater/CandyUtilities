@@ -4,7 +4,7 @@
 //https://stackabuse.com/bytes/converting-images-and-image-urls-to-base64-in-node-js/
 
 import * as fs from 'node:fs/promises';
-import { inputfolder, shareKey, CTRCount, outputfolder } from '../config.js'
+import { inputfolder, outputfolder } from '../config.js'
 
 var files = await fs.readdir(inputfolder)
 
@@ -14,8 +14,8 @@ files.forEach(async fileName => {
     writeFile(outputfolder + fileName, base64Image);
 })
 
-var data = await fs.readFile(inputfolder + files[0])
-let base64Image = Buffer.from(data, 'binary').toString('base64');
+// var data = await fs.readFile(inputfolder + files[0])
+// let base64Image = Buffer.from(data, 'binary').toString('base64');
 
 // console.log(base64Image);
 

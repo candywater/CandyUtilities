@@ -1,20 +1,15 @@
-export const btoa = (text) => Buffer.from(text, 'binary').toString('base64');
-export const atob = (base64) => Buffer.from(base64, 'base64').toString('binary');
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-//https://stackoverflow.com/questions/64959908/svelte-component-onload
-export const createLoadObserver = handler => {
-    let waiting = 0
-  
-    const onload = el => {
-        waiting++
-        el.addEventListener('load', () => {
-            waiting--
-            if (waiting === 0) {
-                handler()
-            }
-        })
-    }
-    
-    return onload
-  }
-  
+const btoa = (text) => Buffer.from(text, 'binary').toString('base64');
+const atob = (base64) => Buffer.from(base64, 'base64').toString('binary');
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+export {
+    btoa,
+    atob,
+    __filename,
+    __dirname,
+}

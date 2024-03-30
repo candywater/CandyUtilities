@@ -5,3 +5,4 @@ node_modules/
 **/*.aes
 **/imgs-base64/*
 assets
+data
