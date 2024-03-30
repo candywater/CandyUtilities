@@ -7,5 +7,6 @@ export {
   Counter,
   Image,
   Util,
+  BrowserUtil,
   Aes,
 }
